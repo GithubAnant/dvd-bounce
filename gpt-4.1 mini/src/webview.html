@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bouncing DVD Logo</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #111;
+    }
+    canvas {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+      background: #111;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="dvdCanvas"></canvas>
+  <script>
+    const canvas = document.getElementById('dvdCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Logo properties
+    const logoWidth = 120;
+    const logoHeight = 60;
+    let x, y, dx, dy, color;
+
+    // Utility: random color
+    function randomColor() {
+      return `hsl(${Math.floor(Math.random() * 360)}, 80%, 60%)`;
+    }
+
+    // Utility: random velocity
+    function randomVelocity() {
+      const speed = 3 + Math.random() * 2;
+      const angle = Math.random() * 2 * Math.PI;
+      return [Math.cos(angle) * speed, Math.sin(angle) * speed];
+    }
+
+    // Resize canvas to fill window
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    // Initialize logo position and velocity
+    function reset() {
+      x = Math.random() * (canvas.width - logoWidth);
+      y = Math.random() * (canvas.height - logoHeight);
+      [dx, dy] = randomVelocity();
+      color = randomColor();
+    }
+    reset();
+
+    function drawLogo(x, y, color) {
+      // Draw rounded rectangle
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(x + 10, y);
+      ctx.lineTo(x + logoWidth - 10, y);
+      ctx.quadraticCurveTo(x + logoWidth, y, x + logoWidth, y + 10);
+      ctx.lineTo(x + logoWidth, y + logoHeight - 10);
+      ctx.quadraticCurveTo(x + logoWidth, y + logoHeight, x + logoWidth - 10, y + logoHeight);
+      ctx.lineTo(x + 10, y + logoHeight);
+      ctx.quadraticCurveTo(x, y + logoHeight, x, y + logoHeight - 10);
+      ctx.lineTo(x, y + 10);
+      ctx.quadraticCurveTo(x, y, x + 10, y);
+      ctx.closePath();
+      ctx.fillStyle = color;
+      ctx.fill();
+
+      // Draw "DVD" text
+      ctx.font = "bold 32px Arial";
+      ctx.fillStyle = "#fff";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("DVD", x + logoWidth / 2, y + logoHeight / 2);
+      ctx.restore();
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Move logo
+      x += dx;
+      y += dy;
+
+      let bounced = false;
+
+      // Bounce logic
+      if (x <= 0) {
+        x = 0;
+        dx = Math.abs(dx);
+        bounced = true;
+      } else if (x + logoWidth >= canvas.width) {
+        x = canvas.width - logoWidth;
+        dx = -Math.abs(dx);
+        bounced = true;
+      }
+      if (y <= 0) {
+        y = 0;
+        dy = Math.abs(dy);
+        bounced = true;
+      } else if (y + logoHeight >= canvas.height) {
+        y = canvas.height - logoHeight;
+        dy = -Math.abs(dy);
+        bounced = true;
+      }
+
+      if (bounced) {
+        color = randomColor();
+      }
+
+      drawLogo(x, y, color);
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+</body>
+</html>

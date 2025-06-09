@@ -1,0 +1,31 @@
+{
+  "name": "bouncing-dvd-logo",
+  "displayName": "Bouncing DVD Logo",
+  "description": "Shows a bouncing DVD logo in a WebView panel.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "activationEvents": [
+    "onCommand:bouncing-dvd-logo.start"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "bouncing-dvd-logo.start",
+        "title": "Start Bouncing DVD Logo"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "^20.11.0",  
+    "typescript": "^5.3.3"
+  }
+}

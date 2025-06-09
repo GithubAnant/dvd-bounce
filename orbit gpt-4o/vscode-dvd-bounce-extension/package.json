@@ -1,0 +1,29 @@
+{
+  "name": "dvd-bounce",
+  "displayName": "DVD Bounce",
+  "description": "Shows a bouncing DVD logo in a WebView.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.89.0"
+  },
+  "activationEvents": [
+    "onCommand:extension.startDvdBounce"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.startDvdBounce",
+        "title": "Start DVD Bounce"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "tsc -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.0",
+    "@types/vscode": "^1.89.0",
+    "typescript": "^5.0.0"
+  }
+}

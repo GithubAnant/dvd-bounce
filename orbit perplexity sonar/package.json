@@ -1,0 +1,44 @@
+{
+  "name": "BouncingDvdLogo",
+  "displayName": "Bouncing DVD Logo",
+  "version": "1.0.0",
+  "description": "A VS Code extension that shows a bouncing DVD-style logo in a WebView.",
+  "main": "extension.ts",
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p .",
+    "watch": "tsc -watch -p ."
+  },
+  "engines": {
+    "vscode": "^1.87.0"
+  },
+  "keywords": [],
+  "categories": [],
+  "contributes": {
+    "commands": [
+      {
+        "command": "bouncingDvdLogo.openView",
+        "title": "Open Bouncing DVD Logo View"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "bouncingDvdLogo",
+          "title": "Bouncing DVD Logo",
+          "icon": "resources/icon.png"
+        }
+      ]
+    }
+  },
+  "activationEvents": [
+    "onCommand:bouncingDvdLogo.openView"
+  ],
+  "dependencies": {
+    "vscode": "^1"
+  },
+  "devDependencies": {
+    "typescript": "^4",
+    "@types/vscode": "^1.87.0"
+  }
+}

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bouncing DVD Logo</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #1e1e1e;
+        }
+        #logo {
+            position: absolute;
+            width: 100px;
+            height: auto;
+            color: white; /* Initial color, will be changed by JS */
+        }
+    </style>
+</head>
+<body>
+
+    <svg id="logo" viewBox="0 0 325 150" xmlns="http://www.w3.org/2000/svg">
+      <path fill="currentColor" d="M37.33,103.85c-10.46,0-18.32-3.41-23.59-10.22c-5.26-6.81-7.9-15.93-7.9-27.36c0-11.44,2.64-20.55,7.9-27.36 c5.26-6.81,13.13-10.22,23.59-10.22c10.46,0,18.32,3.41,23.59,10.22c5.26,6.81,7.9,15.92,7.9,27.36c0,11.43-2.64,20.55-7.9,27.36 C55.65,100.44,47.79,103.85,37.33,103.85z M37.33,35.49c-6.42,0-11.55,2.49-15.37,7.46c-3.82,4.97-5.73,11.89-5.73,20.76 c0,8.87,1.91,15.79,5.73,20.76c3.82,4.97,8.95,7.46,15.37,7.46c6.42,0,11.55-2.49,15.37-7.46c3.82-4.97,5.73-11.89,5.73-20.76 c0-8.87-1.91-15.79-5.73-20.76C48.88,37.98,43.75,35.49,37.33,35.49z"></path>
+      <path fill="currentColor" d="M128.5,102.58l-18.77-38.35h-1.32l-18.77,38.35H78.4l25.08-51.48h11.22l25.08,51.48H128.5z"></path>
+      <path fill="currentColor" d="M219.78,102.58l-18.77-38.35h-1.32l-18.77,38.35h-11.22l25.08-51.48h11.22l25.08,51.48H219.78z"></path>
+      <path fill="currentColor" d="M259.94,35.49v67.09h11.22V35.49H259.94z"></path>
+      <ellipse fill="currentColor" cx="303.49" cy="51.1" rx="21.18" ry="21.82"></ellipse>
+    </svg>
+
+    <script>
+        const logo = document.getElementById('logo');
+        const
+         vw = window.innerWidth;
+        const vh = window.innerHeight;
+
+        let x = Math.random() * (vw - logo.clientWidth);
+        let y = Math.random() * (vh - logo.clientHeight);
+        let dx = 2; // x-velocity
+        let dy = 2; // y-velocity
+
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function animate() {
+            x += dx;
+            y += dy;
+
+            if (x + logo.clientWidth >= vw || x <= 0) {
+                dx = -dx;
+                logo.style.color = getRandomColor();
+            }
+
+            if (y + logo.clientHeight >= vh || y <= 0) {
+                dy = -dy;
+                logo.style.color = getRandomColor();
+            }
+
+            logo.style.left = x + 'px';
+            logo.style.top = y + 'px';
+
+            requestAnimationFrame(animate);
+        }
+
+        logo.style.color = getRandomColor(); // Initial random color
+        animate();
+    </script>
+
+</body>
+</html>

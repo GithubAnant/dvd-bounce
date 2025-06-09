@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DVD Bounce</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      overflow: hidden;
+      height: 100%;
+    }
+    #dvd {
+      position: absolute;
+      width: 150px;
+      height: 100px;
+      background-color: red;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 24px;
+      font-family: sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div id="dvd">DVD</div>
+  <script>
+    const dvd = document.getElementById('dvd');
+    const colors = ['red', 'blue', 'green', 'yellow', 'cyan', 'magenta', 'orange', 'white'];
+
+    let x = Math.random() * (window.innerWidth - dvd.clientWidth);
+    let y = Math.random() * (window.innerHeight - dvd.clientHeight);
+    let dx = 2.5;
+    let dy = 2.5;
+
+    function randomColor() {
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    function animate() {
+      x += dx;
+      y += dy;
+
+      if (x <= 0 || x + dvd.clientWidth >= window.innerWidth) {
+        dx *= -1;
+        dvd.style.backgroundColor = randomColor();
+      }
+      if (y <= 0 || y + dvd.clientHeight >= window.innerHeight) {
+        dy *= -1;
+        dvd.style.backgroundColor = randomColor();
+      }
+
+      dvd.style.left = `${x}px`;
+      dvd.style.top = `${y}px`;
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+</body>
+</html>
